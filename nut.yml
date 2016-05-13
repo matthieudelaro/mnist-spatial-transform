@@ -1,0 +1,23 @@
+syntax_version: "6"
+project_name: gtsrb.torch
+docker_image: matthieudelaro/cuda-torch-plus
+enable_nvidia_devices: true
+container_working_directory: /nut/gtsrb
+mount:
+  main:
+    - .
+    - /nut/gtsrb
+macros:
+  setup:
+    usage: download dataset and dependencies
+    actions:
+      - git clone https://github.com/qassemoquab/stnbhwd.git
+      - cd stnbhwd && luarocks make stnbhwd-scm-1.rockspec
+  train:
+    usage: train the network with default parameters
+    actions:
+      - time luajit main.lua -o weights_default_training # accuracy % :  97.094220110847, after 10 iterations, about 14 min
+  train-2st-idsia:
+    usage: train the network with two spatial transformers with idsia-like network
+    actions:
+      - time luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 26 -o train-2st-idsia
