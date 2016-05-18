@@ -16,6 +16,11 @@ macros:
     usage: some tests
     actions:
     - luajit main.lua -o weights_some_tests --no_cuda --mnist
+  test-gpu:
+    usage: some tests
+    enable_nvidia_devices: true
+    actions:
+    - luajit main.lua -o weights_some_tests --mnist
   train:
     usage: train the network with default parameters
     enable_nvidia_devices: true

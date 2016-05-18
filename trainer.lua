@@ -111,7 +111,8 @@ function trainer.test(dataset)
   indices = indices:split(trainer.batch_size)
 
   -- preallocate input and target tensors
-  local inputs = torch.zeros(trainer.batch_size, 3,
+  -- local inputs = torch.zeros(trainer.batch_size, 3,
+  local inputs = torch.zeros(trainer.batch_size, dataset.data:size(2),
                                     size_samples, size_samples,
                                     trainer.tensor_type)
   local targets = torch.zeros(trainer.batch_size, 1,
@@ -122,11 +123,13 @@ function trainer.test(dataset)
     -- last batch may not be full
     local local_batch_size = ind:size(1)
     -- resize prealocated tensors (should only happen on last batch)
-    inputs:resize(local_batch_size,3,size_samples,size_samples)
+    -- inputs:resize(local_batch_size,3,size_samples,size_samples)
+    inputs:resize(local_batch_size,dataset.data:size(2),size_samples,size_samples)
     targets:resize(local_batch_size, 1)
 
     inputs:copy(dataset.data:index(1,ind))
-    targets:copy(dataset.label:index(1,ind))
+    -- targets:copy(dataset.label:index(1,ind))
+    targets:copy(dataset.labels:index(1,ind))
 
     -- test samples
     local scores = trainer.network:forward(inputs)
