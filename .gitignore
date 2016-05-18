@@ -1,2 +1,7 @@
 mnist.t7/
 stnbhwd/
+lua_modules/
+test_dataset.bin
+train_dataset.bin
+validation_dataset.bin
+weights_*

@@ -65,8 +65,8 @@ function trainer.train(dataset)
   for t,ind in ipairs(indices) do
     -- get the minibatch
     inputs:copy(dataset.data:index(1,ind))
-    targets:copy(dataset.labels:index(1,ind))
-    -- targets:copy(dataset.label:index(1,ind))
+    -- targets:copy(dataset.labels:index(1,ind))
+    targets:copy(dataset.label:index(1,ind))
 
     epoch_error = epoch_error + trainer.optimizer:optimize(optim.sgd,
                                   inputs,
@@ -128,8 +128,8 @@ function trainer.test(dataset)
     targets:resize(local_batch_size, 1)
 
     inputs:copy(dataset.data:index(1,ind))
-    -- targets:copy(dataset.label:index(1,ind))
-    targets:copy(dataset.labels:index(1,ind))
+    targets:copy(dataset.label:index(1,ind))
+    -- targets:copy(dataset.labels:index(1,ind))
 
     -- test samples
     local scores = trainer.network:forward(inputs)
