@@ -1,3 +1,5 @@
+-- code based on https://github.com/torch/demos/blob/master/train-a-digit-classifier/dataset-mnist.lua
+
 require 'torch'
 require 'paths'
 

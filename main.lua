@@ -14,7 +14,7 @@ Main options
   --script                                Write accuracy on last line of output for benchmarks
   --no_cuda                               Do not use CUDA
   --mnist                                 Use MNIST instead of GTSRB
-  -n            (default 20000)           Use only N samples for training
+  -n            (default -1)              Use only N samples for training
   -e            (default 10)              Number of epochs
 
 Network generation

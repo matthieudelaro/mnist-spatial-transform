@@ -43,10 +43,10 @@ function trainer.train(dataset)
   local epoch_error = 0
   local nbr_samples = dataset.data:size(1)
   local size_samples = dataset.data:size()[dataset.data:dim()]
-  print("dataset.data:dim()", dataset.data:dim())
-  print("dataset.data:size()", dataset.data:size())
-  print("size_samples", size_samples)
-  print("nbr_samples", nbr_samples)
+  -- print("dataset.data:dim()", dataset.data:dim())
+  -- print("dataset.data:size()", dataset.data:size())
+  -- print("size_samples", size_samples)
+  -- print("nbr_samples", nbr_samples)
   -- print("", )
   local time = sys.clock()
 
