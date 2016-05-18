@@ -200,7 +200,9 @@ end
 -- Main factory function
 -- Can take an opt.net file that will be used to create the network
 -- Can take an opt.cnn option that specify how to build the network.
-function networks.new(opt)
+function networks.new(opt, dim)
+  networks.nbr_classes = dim.classes
+  networks.base_input_size = dim.width
   local network
   if opt.net and opt.net ~= '' then
     local user_module = dofile(opt.net)
@@ -214,7 +216,7 @@ function networks.new(opt)
     assert(#nbr_elements == 3,
       'opt.cnn should contain 3 comma separated values, got '..#nbr_elements)
 
-    local conv1 = networks.new_conv(3, nbr_elements[1],
+    local conv1 = networks.new_conv(dim.channels, nbr_elements[1],
                                     false, opt.no_cnorm)
     local conv2 = networks.new_conv(nbr_elements[1], nbr_elements[2],
                                     opt.ms, opt.no_cnorm)

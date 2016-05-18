@@ -43,6 +43,11 @@ function trainer.train(dataset)
   local epoch_error = 0
   local nbr_samples = dataset.data:size(1)
   local size_samples = dataset.data:size()[dataset.data:dim()]
+  print("dataset.data:dim()", dataset.data:dim())
+  print("dataset.data:size()", dataset.data:size())
+  print("size_samples", size_samples)
+  print("nbr_samples", nbr_samples)
+  -- print("", )
   local time = sys.clock()
 
   -- generate random training batches
@@ -50,7 +55,8 @@ function trainer.train(dataset)
   indices[#indices] = nil -- remove last partial batch
 
   -- preallocate input and target tensors
-  local inputs = torch.zeros(trainer.batch_size, 3,
+  -- local inputs = torch.zeros(trainer.batch_size, 3,
+  local inputs = torch.zeros(trainer.batch_size, dataset.data:size(2),
                                     size_samples, size_samples,
                                     trainer.tensor_type)
   local targets = torch.zeros(trainer.batch_size, 1,
@@ -59,7 +65,8 @@ function trainer.train(dataset)
   for t,ind in ipairs(indices) do
     -- get the minibatch
     inputs:copy(dataset.data:index(1,ind))
-    targets:copy(dataset.label:index(1,ind))
+    targets:copy(dataset.labels:index(1,ind))
+    -- targets:copy(dataset.label:index(1,ind))
 
     epoch_error = epoch_error + trainer.optimizer:optimize(optim.sgd,
                                   inputs,

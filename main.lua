@@ -13,6 +13,7 @@ Main options
   --val                                   Use a validation set instead of the test set
   --script                                Write accuracy on last line of output for benchmarks
   --no_cuda                               Do not use CUDA
+  --mnist                                 Use MNIST instead of GTSRB
   -n            (default 20000)           Use only N samples for training
   -e            (default 10)              Number of epochs
 
@@ -54,24 +55,45 @@ end
 
 print("Loading training data...")
 local train_dataset, test_dataset
-if opt.val then
-  -- In this case our variable 'test_dataset' contains the validation set
-  train_dataset, test_dataset = gtsrb.dataset.get_train_dataset(opt.n, true)
-else
-  train_dataset = gtsrb.dataset.get_train_dataset(opt.n)
-  test_dataset = gtsrb.dataset.get_test_dataset()
-end
-
+local dim
 local mean, std
-if not opt.no_norm then
-  print('Performing global normalization...')
-  mean, std = gtsrb.dataset.normalize_global(train_dataset)
-  gtsrb.dataset.normalize_global(test_dataset, mean, std)
-end
-if not opt.no_lnorm then
-  print('Performing local normalization...')
-  gtsrb.dataset.normalize_local(train_dataset)
-  gtsrb.dataset.normalize_local(test_dataset)
+if opt.mnist then
+  dim = gtsrb.mnist.dim()
+  if opt.val then
+    print('--val is not supported for MNIST...')
+  else
+    train_dataset = gtsrb.mnist.loadTrainSet(opt.n)
+    test_dataset = gtsrb.mnist.loadTestSet(opt.n)
+  end
+  if not opt.no_norm then
+    print('Performing global normalization...')
+    mean, std = train_dataset.normalizeGlobal()
+    test_dataset.normalizeGlobal(mean, std)
+  end
+  if not opt.no_lnorm then
+    print('Performing local normalization...')
+    train_dataset.normalize()
+    test_dataset.normalize()
+  end
+else
+  dim = gtsrb.dataset.dim()
+  if opt.val then
+    -- In this case our variable 'test_dataset' contains the validation set
+    train_dataset, test_dataset = gtsrb.dataset.get_train_dataset(opt.n, true)
+  else
+    train_dataset = gtsrb.dataset.get_train_dataset(opt.n)
+    test_dataset = gtsrb.dataset.get_test_dataset()
+  end
+  if not opt.no_norm then
+    print('Performing global normalization...')
+    mean, std = gtsrb.dataset.normalize_global(train_dataset)
+    gtsrb.dataset.normalize_global(test_dataset, mean, std)
+  end
+  if not opt.no_lnorm then
+    print('Performing local normalization...')
+    gtsrb.dataset.normalize_local(train_dataset)
+    gtsrb.dataset.normalize_local(test_dataset)
+  end
 end
 
 local network
@@ -84,7 +106,7 @@ if opt.eval then
   end
 else
   print('Building the network...')
-  network = gtsrb.networks.new(opt)
+  network = gtsrb.networks.new(opt, dim)
 end
 local criterion = nn.CrossEntropyCriterion()
 if not opt.no_cuda then

@@ -7,6 +7,17 @@ torch.setdefaulttensortype('torch.FloatTensor')
 
 local dataset = {}
 
+local dim = {}
+dim.channels = 3
+dim.width = 48
+dim.height = 48
+dim.classes = 43
+
+function dataset.dim()
+  return dim
+end
+
+
 -- Private function declaration
 local generate_dataset
 local prune_dataset
