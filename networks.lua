@@ -108,7 +108,7 @@ function networks.new_spatial_tranformer(locnet, rot, sca, tra,
                                          input_size, input_channels,
                                          no_cuda)
   input_size = input_size or networks.base_input_size
-  input_channels = input_channels or 3
+  input_channels = input_channels or networks.base_channels
   require 'stn'
   local nbr_elements = {}
   for c in string.gmatch(locnet, "%d+") do
@@ -203,6 +203,7 @@ end
 function networks.new(opt, dim)
   networks.nbr_classes = dim.classes
   networks.base_input_size = dim.width
+  networks.base_channels = dim.channels
   local network
   if opt.net and opt.net ~= '' then
     local user_module = dofile(opt.net)

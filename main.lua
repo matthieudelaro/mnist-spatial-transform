@@ -13,7 +13,7 @@ Main options
   --val                                   Use a validation set instead of the test set
   --script                                Write accuracy on last line of output for benchmarks
   --no_cuda                               Do not use CUDA
-  --mnist                                 Use MNIST instead of GTSRB
+  --mnist       (default "")              Use MNIST instead of GTSRB
   -n            (default -1)              Use only N samples for training
   -e            (default 10)              Number of epochs
 
@@ -57,14 +57,21 @@ print("Loading training data...")
 local train_dataset, test_dataset
 local dim
 local mean, std
-if opt.mnist then
-  dim = gtsrb.mnist.dim()
+if opt.mnist ~= '' then
   if opt.val then
     print('--val is not supported for MNIST...')
-  else
+  elseif opt.mnist == 'normal' then
+    print('Using normal MNIST dataset')
+    dim = gtsrb.mnist.dim()
     train_dataset = gtsrb.mnist.loadTrainSet(opt.n)
     test_dataset = gtsrb.mnist.loadTestSet(opt.n)
+  elseif opt.mnist == 'distorted' then
+    print('Using distorted MNIST dataset')
+    dim = gtsrb.distortedmnist.dim()
+    train_dataset = gtsrb.distortedmnist.loadTrainSet(opt.n)
+    test_dataset = gtsrb.distortedmnist.loadTestSet(opt.n)
   end
+
   if not opt.no_norm then
     print('Performing global normalization...')
     mean, std = train_dataset.normalizeGlobal()
@@ -76,6 +83,7 @@ if opt.mnist then
     test_dataset.normalize()
   end
 else
+  print('Using GTSRB dataset')
   dim = gtsrb.dataset.dim()
   if opt.val then
     -- In this case our variable 'test_dataset' contains the validation set
@@ -95,6 +103,8 @@ else
     gtsrb.dataset.normalize_local(test_dataset)
   end
 end
+
+train_dataset = train_dataset:cuda()
 
 local network
 if opt.eval then

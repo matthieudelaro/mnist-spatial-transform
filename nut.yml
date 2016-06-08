@@ -1,7 +1,8 @@
 syntax_version: "6"
 project_name: gtsrb.torch
-docker_image: matthieudelaro/cuda-torch-plus
+docker_image: matthieudelaro/cuda-torch-plus2
 container_working_directory: /nut/gtsrb
+enable_nvidia_devices: true
 mount:
   main:
     - .
@@ -21,6 +22,42 @@ macros:
     enable_nvidia_devices: true
     actions:
     - luajit main.lua -o weights_some_tests --mnist
+
+  train-gpu-distorted-mnist:
+    usage: train-gpu-distorted-mnist
+    enable_nvidia_devices: true
+    actions:
+    - luajit main.lua -o weights_train-gpu-distorted-mnist --mnist=distorted
+
+  train-gpu-distorted-mnist-st:
+    usage: train-gpu-distorted-mnist-st
+    enable_nvidia_devices: true
+    actions:
+    - luajit main.lua --st -o weights_train-gpu-distorted-mnist-st --mnist=distorted
+    # Initializing the trainer...
+    # Starting epoch 1
+    # <trainer> on training set:
+    #  [======================================== 240000/240000 ==============================>]  Tot: 26m55s | Step: 6ms
+    # <trainer> time to learn 1 sample = 6.7335770994425ms
+    # <trainer> mean error (train set) = 0.017918109872627
+
+    # <trainer> on testing Set:
+    #  [======================================== 40000/40000 ================================>]  Tot: 1m17s | Step: 1ms
+    # <trainer> time to test 1 sample = 1.9291370511055ms
+    # <trainer> mean error (test set) = 0.0094988738860935
+    # accuracy % :    85.07
+
+    # Starting epoch 2
+    # <trainer> on training set:
+    #  [======================================== 240000/240000 ==============================>]  Tot: 26m48s | Step: 6ms
+    # <trainer> time to learn 1 sample = 6.7047851542632ms
+    # <trainer> mean error (train set) = 0.0094512670416385
+
+    # <trainer> on testing Set:
+    #  [======================================== 40000/40000 ================================>]  Tot: 1m17s | Step: 1ms
+    # <trainer> time to test 1 sample = 1.9297495782375ms
+    # <trainer> mean error (test set) = 0.0084487771641463
+    # accuracy % :    86.63
   train:
     usage: train the network with default parameters
     enable_nvidia_devices: true
