@@ -23,6 +23,170 @@ macros:
     actions:
     - luajit main.lua -o weights_some_tests --mnist
 
+  train-gpu-distorted-mnist-small:
+    usage: train-gpu-distorted-mnist
+    enable_nvidia_devices: true
+    actions:
+    - luajit main.lua -o weights_train-gpu-distorted-mnist-small --mnist=distorted --cnn 32,32,32 --script
+
+  train-gpu-distorted-mnist-small-st2:
+    usage: train-gpu-distorted-mnist
+    enable_nvidia_devices: true
+    actions:
+    - luajit main.lua --st -o weights_train-gpu-distorted-mnist-small-st2 --mnist=distorted --cnn 32,32,32 --locnet 16,16,16 --script
+      # Initializing the trainer...
+      # Starting epoch 1
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 8m23s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.0974886546532ms
+      # <trainer> mean error (train set) = 0.019674934977666
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 27s758ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.69615502357483ms
+      # <trainer> mean error (test set) = 0.01094195792675
+      # accuracy % :    83.33
+
+      # Starting epoch 2
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 8m24s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.1021130035321ms
+      # <trainer> mean error (train set) = 0.010082618458383
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 27s616ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.69261515140533ms
+      # <trainer> mean error (test set) = 0.009211411408335
+      # accuracy % :    85.9875
+
+      # Starting epoch 3
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 8m24s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.1004938582579ms
+      # <trainer> mean error (train set) = 0.0096526914256935
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 27s749ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.69594107270241ms
+      # <trainer> mean error (test set) = 0.0088241341151297
+      # accuracy % :    86.0625
+      # ...
+      # Starting epoch 8
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 8m24s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.1019586086273ms
+      # <trainer> mean error (train set) = 0.0076344005489411
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 27s812ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.69750847816467ms
+      # <trainer> mean error (test set) = 0.0080796344410628
+      # accuracy % :    86.7125
+
+      # Starting epoch 9
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 8m24s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.1022053619226ms
+      # <trainer> mean error (train set) = 0.0074724776240687
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 27s726ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.69537352323532ms
+      # <trainer> mean error (test set) = 0.0080294333523139
+      # accuracy % :    87.025
+
+      # Starting epoch 10
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 8m24s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.1023378411929ms
+      # <trainer> mean error (train set) = 0.0073587628998483
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 27s685ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.69433759450912ms
+      # <trainer> mean error (test set) = 0.0079550050577149
+      # accuracy % :    87.1425
+
+
+  train-gpu-distorted-mnist-small-st:
+    usage: train-gpu-distorted-mnist-st
+    enable_nvidia_devices: true
+    actions:
+    - luajit main.lua --st -o weights_train-gpu-distorted-mnist-small-st --mnist=distorted --cnn 32,32,32 --script
+      # Starting epoch 1
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 10m34s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.6447856833537ms
+      # <trainer> mean error (train set) = 0.019330006835982
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 35s942ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.89992870092392ms
+      # <trainer> mean error (test set) = 0.012388100580871
+      # accuracy % :    81.225
+
+      # Starting epoch 2
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 10m34s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.6460706750552ms
+      # <trainer> mean error (train set) = 0.011466382146937
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 36s51ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.90265580415726ms
+      # <trainer> mean error (test set) = 0.010906003184989
+      # accuracy % :    83.7125
+
+      # Starting epoch 3
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 10m34s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.6429210255543ms
+      # <trainer> mean error (train set) = 0.011003331215059
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 35s974ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.90071992874146ms
+      # <trainer> mean error (test set) = 0.0095655715733767
+      # accuracy % :    85.36
+      # ...
+      # Starting epoch 7
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 10m33s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.6420741627614ms
+      # <trainer> mean error (train set) = 0.0098007467068111
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 36s17ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.90186159610748ms
+      # <trainer> mean error (test set) = 0.00873576182127
+      # accuracy % :    86.4075
+
+      # Starting epoch 8
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 10m34s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.6428561369578ms
+      # <trainer> mean error (train set) = 0.012436034230205
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 35s840ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.8973661005497ms
+      # <trainer> mean error (test set) = 0.046236572593451
+      # accuracy % :    11.4625  # I guess it NaN at this point
+
+      # Starting epoch 9
+      # <trainer> on training set:
+      #  [======================================== 240000/240000 ==============================>]  Tot: 10m33s | Step: 2ms
+      # <trainer> time to learn 1 sample = 2.6387326250474ms
+      # <trainer> mean error (train set) = 0.045964088297387
+
+      # <trainer> on testing Set:
+      #  [======================================== 40000/40000 ================================>]  Tot: 35s918ms | Step: 0ms
+      # <trainer> time to test 1 sample = 0.89932552576065ms
+      # <trainer> mean error (test set) = 0.04592716345787
+      # accuracy % :    11.4625
+
+
+
   train-gpu-distorted-mnist:
     usage: train-gpu-distorted-mnist
     enable_nvidia_devices: true
@@ -33,7 +197,7 @@ macros:
     usage: train-gpu-distorted-mnist-st
     enable_nvidia_devices: true
     actions:
-    - luajit main.lua --st -o weights_train-gpu-distorted-mnist-st --mnist=distorted
+    - luajit main.lua --st -o weights_train-gpu-distorted-mnist-st-2 --mnist=distorted
     # Initializing the trainer...
     # Starting epoch 1
     # <trainer> on training set:
@@ -67,4 +231,15 @@ macros:
     usage: train the network with two spatial transformers with idsia-like network
     enable_nvidia_devices: true
     actions:
-      - time luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 26 -o train-2st-idsia
+      # - time luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 26 -o train-2st-idsia  # good, but kind of short
+
+      - mkdir -p /nut/gtsrb/logs
+      - export PREFIX=`date '+%y-%m-%d_%Hh%Mm%Ss'`
+      # - cd /nut/gtsrb/SqueezeNet/SqueezeNet_STN
+      - echo See logs in logs/$PREFIX.....sh
+      - time luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 200 -o train-2st-idsia > /nut/gtsrb/logs/train-2st-idsia.$PREFIX.sh 2>&1   # hope to get a better result, because longer training
+      - caffe train --solver=solver_frozen.prototxt --weights=squeezenet_v1.1.caffemodel > /nut/gtsrb/logs/finetune-squeezestn-frozen.$PREFIX.sh 2>&1
+  test-2st-idsia:
+    usage: test the network. Should show accuracy of 99.683293745051
+    actions:
+     - luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 26 -o train-2st-idsia49 --eval

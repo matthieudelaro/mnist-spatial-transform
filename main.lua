@@ -1,5 +1,6 @@
 require 'torch'
 require 'nn'
+require "stn"
 local gtsrb = require 'gtsrb'
 local lapp = require 'pl.lapp'
 
@@ -104,8 +105,6 @@ else
   end
 end
 
-train_dataset = train_dataset:cuda()
-
 local network
 if opt.eval then
   if opt.output then
@@ -142,8 +141,8 @@ else
     _, accuracy = gtsrb.trainer.test(test_dataset)
 
     if opt.output ~= '' then
-      torch.save(opt.output, network)
-      torch.save(opt.output.."norm", {mean, std})
+      torch.save(opt.output .. epoch, network)
+      torch.save(opt.output..epoch.."norm", {mean, std})
     end
     epoch = epoch + 1
   end
