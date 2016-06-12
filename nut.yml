@@ -237,8 +237,7 @@ macros:
       - export PREFIX=`date '+%y-%m-%d_%Hh%Mm%Ss'`
       # - cd /nut/gtsrb/SqueezeNet/SqueezeNet_STN
       - echo See logs in logs/$PREFIX.....sh
-      - time luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 200 -o train-2st-idsia > /nut/gtsrb/logs/train-2st-idsia.$PREFIX.sh 2>&1   # hope to get a better result, because longer training
-      - caffe train --solver=solver_frozen.prototxt --weights=squeezenet_v1.1.caffemodel > /nut/gtsrb/logs/finetune-squeezestn-frozen.$PREFIX.sh 2>&1
+      - time luajit main.lua -n -1 --st --net idsia_net.lua --cnn 150,200,300,350 --locnet 200,300,200 --locnet3 150,150,150 -e 49 -o train-2st-idsia > /nut/gtsrb/logs/train-2st-idsia.$PREFIX.sh 2>&1   # better result at iteration 49:  99.683293745051
   test-2st-idsia:
     usage: test the network. Should show accuracy of 99.683293745051
     actions:

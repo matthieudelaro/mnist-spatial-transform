@@ -1,5 +1,17 @@
 ## gtsrb.torch
 
+### Introduction
+This repo is based on https://github.com/Moodstocks/gtsrb.torch.
+It adds the ability to train on MNIST.
+
+To test this code without installing Torch, you can use [Nut](https://github.com/matthieudelaro/nut) to run
+the code automatically in a container:
+``` bash
+$ cd /path/to/the/repo
+$ nut train-2st-idsia  # train the network
+$ nut test-2st-idsia  # test the network
+```
+
 This repo illustrates how to use [Torch](http://torch.ch/) to train a
 convolutional neural network on the [GTSRB](http://benchmark.ini.rub.de/?section=gtsrb&subsection=news)
 dataset (German Traffic Sign Recognition Benchmark) and how to improve the
